@@ -1,0 +1,83 @@
+{% include "header.jinja2" %}
+{% include "nav.jinja2" %}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">IoT Lüftungs-Dashboard</h1>
+            <div class="row">
+                <!-- CO2-Wert -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body">
+                            <i class="fas fa-cloud"></i>
+                            <span> CO₂-Wert</span>
+                            <h2>{{ co2_current or '---' }} ppm</h2>
+                        </div>
+                        <div class="card-footer">
+                            <small>Aktualisiert: {{ last_update or '--:--' }}</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- Personenanzahl -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">
+                            <i class="fas fa-users"></i>
+                            <span> Personen im Raum</span>
+                            <h2>{{ abs_persons or '--' }}</h2>
+                        </div>
+                        <div class="card-footer">
+                            <small>Letzte Erkennung: {{ last_person_update or '--:--' }}</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modus Auto/Manuell -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body">
+                            <i class="fas fa-cog"></i>
+                            <span> Modus</span>
+                            <h2>{{ 'Automatik' if mode == 'auto' else 'Manuell' }}</h2>
+                        </div>
+                        <div class="card-footer">
+                            <form method="post" action="{{ url_for('toggle_mode') }}">
+                                <button type="submit" class="btn btn-light btn-sm">
+                                    {{ 'Wechsel zu Manuell' if mode == 'auto' else 'Wechsel zu Automatik' }}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Lüften-Button & Status -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body">
+                            <i class="fas fa-wind"></i>
+                            <span> Lüften</span>
+                            <h2>
+                                {% if airing_now %}
+                                    Lüften aktiv!
+                                {% else %}
+                                    Kein Lüften
+                                {% endif %}
+                            </h2>
+                        </div>
+                        <div class="card-footer">
+                            <form method="post" action="{{ url_for('air_now') }}">
+                                <button type="submit" class="btn btn-light btn-sm"
+                                  {% if airing_now or mode == 'auto' %}disabled{% endif %}>
+                                    Jetzt Lüften
+                                </button>
+                            </form>
+                            <small>
+                                Zuletzt gelüftet: {{ last_airing or '--:--' }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Optional: Später Verlauf/Charts hier ergänzen -->
+        </div>
+    </main>
+{% include "footer.jinja2" %}
