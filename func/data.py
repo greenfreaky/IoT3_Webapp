@@ -10,7 +10,7 @@ status = {
     "state_window": False,
     "mode": "auto",
     "permission_window": True,
-    "remindering_notification": 30,
+    "reminder_notification": 30,
     "airing_now": False,
     "last_airing": None,
     "last_update": None,
