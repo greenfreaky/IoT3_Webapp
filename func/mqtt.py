@@ -9,9 +9,11 @@ MQTT_PORT = 8883
 MQTT_USER = "room_A1.02"
 MQTT_PASSWORD = "HelloWorld!1"
 
-TOPIC_CO2 = "room1/co2"
-TOPIC_PERSONS = "room1/persons"
-TOPIC_WINDOW = "room1/window"
+TOPIC_CO2 = "co2_current"
+TOPIC_PERSONS = "abs_persons"
+TOPIC_QUALITY = "air_quality"
+TOPIC_WINDOW = "state_windows"
+TOPIC_MODE = "mode"
 
 def on_connect(client, userdata, flags, rc):
     print(f"[mqtt.py][DEBUG] on_connect aufgerufen mit rc={rc}")
@@ -20,7 +22,8 @@ def on_connect(client, userdata, flags, rc):
         client.subscribe(TOPIC_CO2)
         client.subscribe(TOPIC_PERSONS)
         client.subscribe(TOPIC_WINDOW)
-        print(f"[mqtt.py][DEBUG] Subscribed zu Topics: {TOPIC_CO2}, {TOPIC_PERSONS}, {TOPIC_WINDOW}")
+        client.subscribe(TOPIC_QUALITY)
+        print(f"[mqtt.py][DEBUG] Subscribed zu Topics: {TOPIC_CO2}, {TOPIC_PERSONS}, {TOPIC_QUALITY}")
     else:
         print(f"[mqtt.py][ERROR] Verbindung fehlgeschlagen! Return Code: {rc}")
 
@@ -59,6 +62,12 @@ def on_message(client, userdata, msg):
     elif msg.topic == TOPIC_WINDOW:
         # Window-Payload erwartet z.B. "open" oder "closed"
         data.set_state_window(payload.strip().lower() == "open")
+
+    elif msg.topic == TOPIC_QUALITY:
+        value = msg.payload.decode().lower()
+        data.set_air_quality(value)
+        print(f"Luftqualität empfangen: {value}")
+
     else:
         print(f"[mqtt.py][WARN] Unbekanntes Topic empfangen: {msg.topic}")
 
@@ -78,3 +87,7 @@ def start():
         client.loop_start()  # Nicht loop_forever, damit Flask und MQTT gleichzeitig laufen!
     except Exception as e:
         print(f"[mqtt.py][ERROR] Verbindungsaufbau zum Broker fehlgeschlagen: {e}")
+
+def publish_mode(mode):
+    print(f"[mqtt.py][DEBUG] Sende Modus an MQTT: {mode}")
+    client.publish(TOPIC_MODE, mode)

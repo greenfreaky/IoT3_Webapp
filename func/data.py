@@ -15,6 +15,7 @@ status = {
     "last_airing": None,
     "last_update": None,
     "last_person_update": None,
+    "air_quality": None,
 }
 
 def get_status():
@@ -57,6 +58,11 @@ def set_airing_now(is_airing):
             status["last_airing"] = datetime.now().strftime("%H:%M:%S")
         print(f"[data.py][DEBUG] Lüften gesetzt: {status['airing_now']} (Letzte Lüftung: {status['last_airing']})")
 
+def set_air_quality(value):
+    with status_lock:
+        status["air_quality"] = value
+        print(f"[data.py][DEBUG] Luftqualität gesetzt: {status['air_quality']}")
+
 def get_airing_now():
     with status_lock:
         print("[data.py][DEBUG] Status 'airing_now' abgefragt:", status["airing_now"])
@@ -71,3 +77,8 @@ def get_last_airing():
     with status_lock:
         print("[data.py][DEBUG] Letztes Lüften abgefragt:", status["last_airing"])
         return status["last_airing"]
+
+def get_air_quality():
+    with status_lock:
+        print("[data.py][DEBUG] Luftqualität abgefragt:", status["air_quality"])
+        return status["air_quality"]
