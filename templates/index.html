@@ -129,10 +129,10 @@
                         <div class="card-body">
                             <i class="fas fa-cloud"></i>
                             <span> CO₂-Wert</span>
-                            <h2>{{ co2_current or '---' }} ppm</h2>
+                            <h2 id="co2_value">{{ co2_current or '---' }} ppm</h2>
                         </div>
                         <div class="card-footer">
-                            <small>Aktualisiert: {{ last_update or '--:--' }}</small>
+                            <small>Aktualisiert:<span id="co2_last_update">{{ last_update or '--:--' }}</span></small>
                         </div>
                     </div>
                 </div>
@@ -142,10 +142,10 @@
                         <div class="card-body">
                             <i class="fas fa-users"></i>
                             <span> Personen im Raum</span>
-                            <h2>{{ abs_persons or '--' }}</h2>
+                            <h2 id="person_count">{{ abs_persons or '--' }}</h2>
                         </div>
                         <div class="card-footer">
-                            <small>Letzte Erkennung: {{ last_person_update or '--:--' }}</small>
+                            <small>Letzte Erkennung: <span id="person_last_update">{{ last_person_update or '--:--' }}</span></small>
                         </div>
                     </div>
                 </div>
@@ -169,16 +169,18 @@
                     <div class="card bg-danger text-white mb-4">
                         <div class="card-body">
                             <i class="fas fa-wind"></i>
-                            <span> Lüften</span>
+                            <span>Lüften</span>
                             <h2>
                                 Luftqualität:
-                                {% if air_quality == "good" %}
-                                    <span class="badge bg-success">Gut</span>
-                                {% elif air_quality == "bad" %}
-                                    <span class="badge bg-danger">Schlecht</span>
-                                {% else %}
-                                    <span class="badge bg-secondary"></span>
-                                {% endif %}
+                                <span id="air_quality_badge">
+                                    {% if air_quality == "good" %}
+                                        <span class="badge bg-success">Gut</span>
+                                    {% elif air_quality == "bad" %}
+                                        <span class="badge bg-danger">Schlecht</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary"></span>
+                                    {% endif %}
+                                </span>
                             </h2>
                         </div>
                         <div class="card-footer">
@@ -188,8 +190,8 @@
                                     Jetzt Lüften
                                 </button>
                             </form>
-                            <small> Zuletzt gelüftet: {{ last_airing or '--:--' }} <br/>
-                            Aktualisiert: {{ last_update or '--:--' }}</small>
+                            <small> Zuletzt gelüftet:<span id="last_airing"> {{ last_airing or '--:--' }}</span> <br/>
+                                Aktualisiert:<span id="air_quality_update"> {{ last_update or '--:--' }}</span></small>
                         </div>
                     </div>
                 </div>
@@ -211,6 +213,7 @@
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/dashboard_update.js') }}"></script>
 <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.js') }}"></script>
 <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.js') }}"></script>
 <script src="{{ url_for('static', filename='bootstrap/js/scripts.js') }}"></script>

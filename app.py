@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, jsonify
 import data
 import mqtt
 
@@ -38,6 +38,10 @@ def air_now():
     if not status['airing_now'] and status['mode'] == 'manuell':
         data.set_airing_now(True)
     return redirect(url_for('index'))
+
+@app.route("/api/status")
+def api_status():
+    return jsonify(data.get_status())
 
 if __name__ == '__main__':
     # KEIN debug=True!

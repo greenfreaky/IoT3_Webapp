@@ -55,13 +55,14 @@ def set_airing_now(is_airing):
     with status_lock:
         status["airing_now"] = bool(is_airing)
         if is_airing:
-            status["last_airing"] = datetime.now().strftime("%H:%M:%S")
+            status["last_airing_update"] = datetime.now().strftime("%H:%M:%S")
         print(f"[data.py][DEBUG] Lüften gesetzt: {status['airing_now']} (Letzte Lüftung: {status['last_airing']})")
 
 def set_air_quality(value):
     with status_lock:
         status["air_quality"] = value
-        print(f"[data.py][DEBUG] Luftqualität gesetzt: {status['air_quality']}")
+        status["air_quality_update"] = datetime.now().strftime("%H:%M:%S")
+        print(f"[data.py][DEBUG] Luftqualität gesetzt: {status['air_quality']} (Stand: {status['air_quality_update']})")
 
 def get_airing_now():
     with status_lock:
