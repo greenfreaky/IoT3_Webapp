@@ -125,7 +125,7 @@
             <div class="row align-items-stretch">
                 <!-- CO2-Wert -->
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card bg-info-subtle text-dark h-100">
+                    <div class="card bg-primary text-white h-100">
                         <div class="card-body">
                             <i class="fas fa-cloud"></i>
                             <span> CO₂-Wert</span>
@@ -138,7 +138,7 @@
                 </div>
                 <!-- Personenanzahl -->
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card bg-secondary-subtle text-dark h-100">
+                    <div class="card bg-secondary text-white h-100">
                         <div class="card-body">
                             <i class="fas fa-users"></i>
                             <span> Personen im Raum</span>
@@ -151,11 +151,11 @@
                 </div>
                 <!-- Modus Auto/Manuell -->
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card bg-success text-white h-100">
+                    <div class="card bg-info text-white h-100" id="mode_card">
                         <div class="card-body">
                             <i class="fas fa-cog"></i>
-                            <span> Modus</span>
-                            <h2>{{ 'Automatik' if mode == 'auto' else 'Manuell' }}</h2>
+                            <span>Modus</span>
+                            <h2 id="mode_value">{{ 'Automatik' if mode == 'auto' else 'Manuell' }}</h2>
                         </div>
                         <div class="card-footer">
                             <form method="post" action="{{ url_for('toggle_mode') }}">
@@ -166,13 +166,12 @@
                 </div>
                 <!-- Lüften-Button & Status -->
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card bg-danger text-white h-100">
+                    <div class="card bg-danger text-white h-100" id="air_quality_card">
                         <div class="card-body">
                             <i class="fas fa-wind"></i>
                             <span>Lüften</span>
                             <h2>
-                                Luftqualität:
-                                <span id="air_quality_badge">
+                                Luftqualität:<span id="air_quality_badge">
                                     {% if air_quality == "good" %}
                                         <span class="badge bg-success">Gut</span>
                                     {% elif air_quality == "bad" %}
