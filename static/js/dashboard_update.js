@@ -58,6 +58,13 @@ async function updateStatus() {
                     ? ['bg-danger', 'text-white']
                     : []
         );
+        const airQualityBadge = document.getElementById('air_quality_badge');
+        if (airQuality === "good") {
+            airQualityBadge.innerHTML = '<span class="badge bg-success">Gut</span>';
+        } else if (airQuality === "bad") {
+            airQualityBadge.innerHTML = '<span class="badge bg-danger">Schlecht</span>';
+        } else {airQualityBadge.innerHTML = '<span class="badge bg-secondary"></span>';
+        }
         setTextById('air_quality_update', data.air_quality_update ?? DEFAULTS.time);
 
         // Lüften
@@ -72,11 +79,11 @@ async function updateStatus() {
             ['bg-success', 'bg-info', 'bg-purple', 'text-white', 'text-dark'],
             mode === "auto"
                 ? ['bg-info', 'text-light']
-                : mode === "manuell"
+                : mode === "manuel"
                     ? ['bg-purple', 'text-light']
                     : []
         );
-        setTextById('mode_value', mode === "auto" ? "Automatik" : "Manuell");
+        setTextById('mode_value', mode === "auto" ? "Automatik" : "Manuel");
 
     } else {
         // Hier kein throw/catch, sondern direkte Fehlerbehandlung:

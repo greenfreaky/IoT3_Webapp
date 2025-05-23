@@ -3,9 +3,10 @@
 <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{url_for('static', filename='style.css') }}">
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-<link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static', filename='favicon/apple-touch-icon.png')}}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename='favicon/favicon-32x32.png')}}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='favicon-16x16.png')}}">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 <head>
     <meta charset="utf-8" />
@@ -17,7 +18,8 @@
 <!-- SB-Admin Top Navigation Bar -->
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="{{ url_for('index') }}">Start Bootstrap</a>
+    <a class="navbar-brand ps-3" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='favicon/android-chrome-512x512.png') }}"
+             alt="Logo IoT3" width="32" height="32" class="me-2"></a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="{{ url_for('index') }}">
         <i class="fas fa-bars"></i>
@@ -61,18 +63,18 @@
                     <div class="sb-sidenav-menu-heading">Interface</div>
                     <a class="nav-link collapsed" href="{{ url_for('index') }}" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Layouts
+                        Raumbelegungen
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ url_for('index') }}">Static Navigation</a>
-                            <a class="nav-link" href="{{ url_for('index') }}">Light Sidenav</a>
+                            <a class="nav-link" href="{{ url_for('index') }}">Raum A1.02</a>
+                            <a class="nav-link" href="{{ url_for('index') }}">Raum A1.03</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="{{ url_for('index') }}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Pages
+                        Benutzerverwaltung
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
@@ -155,11 +157,11 @@
                         <div class="card-body">
                             <i class="fas fa-cog"></i>
                             <span>Modus</span>
-                            <h2 id="mode_value">{{ 'Automatik' if mode == 'auto' else 'Manuell' }}</h2>
+                            <h2 id="mode_value">{{ 'Automatik' if mode == 'auto' else 'manuel' }}</h2>
                         </div>
                         <div class="card-footer">
                             <form method="post" action="{{ url_for('toggle_mode') }}">
-                                <button type="submit" class="btn btn-light btn-sm">{{ 'Wechsel zu Manuell' if mode == 'auto' else 'Wechsel zu Automatik' }} </button>
+                                <button type="submit" class="btn btn-light btn-sm">{{ 'Wechsel zu Manuel' if mode == 'auto' else 'Wechsel zu Automatik' }} </button>
                             </form>
                         </div>
                     </div>

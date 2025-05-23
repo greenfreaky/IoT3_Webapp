@@ -42,12 +42,12 @@ def set_state_window(is_open):
 
 def toggle_mode():
     with status_lock:
-        status["mode"] = "manuell" if status["mode"] == "auto" else "auto"
+        status["mode"] = "manuel" if status["mode"] == "auto" else "auto"
         print(f"[data.py][DEBUG] Modus umgeschaltet auf: {status['mode']}")
 
 def set_mode(value):
     with status_lock:
-        if value in ["auto", "manuell"]:
+        if value in ["auto", "manuel"]:
             status["mode"] = value
             print(f"[data.py][DEBUG] Modus explizit gesetzt auf: {status['mode']}")
 

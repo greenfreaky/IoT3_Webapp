@@ -23,7 +23,8 @@ def on_connect(client, userdata, flags, rc):
         client.subscribe(TOPIC_PERSONS)
         client.subscribe(TOPIC_WINDOW)
         client.subscribe(TOPIC_QUALITY)
-        print(f"[mqtt.py][DEBUG] Subscribed zu Topics: {TOPIC_CO2}, {TOPIC_PERSONS}, {TOPIC_QUALITY}")
+        client.subscribe(TOPIC_MODE)
+        print(f"[mqtt.py][DEBUG] Subscribed zu Topics: {TOPIC_CO2}, {TOPIC_PERSONS}, {TOPIC_QUALITY}, {TOPIC_MODE}")
     else:
         print(f"[mqtt.py][ERROR] Verbindung fehlgeschlagen! Return Code: {rc}")
 
